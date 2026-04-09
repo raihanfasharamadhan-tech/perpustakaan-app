@@ -22,10 +22,24 @@
 </div>
 <div class="mb-3">
 <label>Status</label>
-<select name="status" class="form-select">
-<option value="pinjam" {{ $transaction->status == 'pinjam' ? 'selected' : '' }}>Sedang Dipinjam</option>
-<option value="kembali" {{ $transaction->status == 'kembali' ? 'selected' : '' }}>Sudah Dikembalikan</option>
-</select>
+
+@if($transaction->status == 'kembali')
+
+    <!-- Kalau sudah kembali -->
+    <input type="text" class="form-control" value="Sudah Dikembalikan" readonly>
+    <input type="hidden" name="status" value="kembali">
+
+@else
+
+    <!-- Kalau belum kembali -->
+    <select name="status" class="form-select">
+        <option value="">-- Pilih Status --</option>
+        <option value="dipinjam" {{ $transaction->status == 'dipinjam' ? 'selected' : '' }}>Dipinjam</option>
+        <option value="kembali">Sudah Dikembalikan</option>
+    </select>
+
+@endif
+
 <small class="text-muted">*Mengubah status ke 'Kembali' akan menambah stok buku.</small>
 </div>
 <button type="submit" class="btn btn-primary">Update</button>
